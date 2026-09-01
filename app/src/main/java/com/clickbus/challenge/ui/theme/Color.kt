@@ -27,7 +27,6 @@ val BorderFaint = Color(0xFFF3F4F6)
 val SurfaceBg = Color(0xFFF5F5FA)
 val SurfaceBgAlt = Color(0xFFF9FAFB)
 val SurfaceWhite = Color(0xFFFFFFFF)
-val HomeSheetBg = Color(0xFFF8F6FC)
 
 // Accent colors used on service icons
 val AccentAmber = Color(0xFFF59E0B)

@@ -92,77 +92,90 @@ fun MapLocationPickerScreen(
 
     var origin by remember { mutableStateOf<String?>(null) }
     var destination by remember { mutableStateOf(preselectedDestination) }
+    var showQrScanner by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        StationTopBar(title = "Rodoviária Tietê", subtitle = "Navegação interna", onBack = onBack)
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            StationTopBar(title = "Rodoviária Tietê", subtitle = "Navegação interna", onBack = onBack)
 
-        LazyColumn(
-            modifier = Modifier
-                .weight(1f)
-                .background(SurfaceBgAlt)
-                .padding(horizontal = 13.dp, vertical = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            item {
-                Text(text = "Onde você está agora?", style = MaterialTheme.typography.titleSmall, color = InkDark)
+            LazyColumn(
+                modifier = Modifier
+                    .weight(1f)
+                    .background(SurfaceBgAlt)
+                    .padding(horizontal = 13.dp, vertical = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                item {
+                    Text(text = "Onde você está agora?", style = MaterialTheme.typography.titleSmall, color = InkDark)
+                }
+
+                item {
+                    SelectableRow(
+                        label = "Escanear QR Code",
+                        icon = Icons.Filled.QrCodeScanner,
+                        selected = origin == QR_ORIGIN_LABEL,
+                        highlightWhenUnselected = true,
+                        onClick = { showQrScanner = true },
+                    )
+                }
+
+                items(entryOptions) { option ->
+                    SelectableRow(
+                        label = option.label,
+                        icon = option.icon,
+                        selected = origin == option.label,
+                        onClick = { origin = option.label },
+                    )
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Para onde deseja ir?", style = MaterialTheme.typography.titleSmall, color = InkDark)
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(text = "SERVIÇOS", style = MaterialTheme.typography.labelSmall, color = TextFaint)
+                }
+
+                items(nearbyServices) { place ->
+                    StationPlaceRow(
+                        place = place,
+                        selected = destination == place.title,
+                        onClick = { destination = place.title },
+                    )
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "PLATAFORMAS DE EMBARQUE", style = MaterialTheme.typography.labelSmall, color = TextFaint)
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    PlatformGrid(
+                        platforms = allPlatforms,
+                        selected = destination,
+                        onSelect = { number -> destination = "Plataforma $number" },
+                    )
+                }
             }
 
-            item {
-                SelectableRow(
-                    label = "Escanear QR Code",
-                    icon = Icons.Filled.QrCodeScanner,
-                    selected = origin == QR_ORIGIN_LABEL,
-                    highlightWhenUnselected = true,
-                    onClick = { origin = QR_ORIGIN_LABEL },
-                )
-            }
-
-            items(entryOptions) { option ->
-                SelectableRow(
-                    label = option.label,
-                    icon = option.icon,
-                    selected = origin == option.label,
-                    onClick = { origin = option.label },
-                )
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Para onde deseja ir?", style = MaterialTheme.typography.titleSmall, color = InkDark)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(text = "SERVIÇOS", style = MaterialTheme.typography.labelSmall, color = TextFaint)
-            }
-
-            items(nearbyServices) { place ->
-                StationPlaceRow(
-                    place = place,
-                    selected = destination == place.title,
-                    onClick = { destination = place.title },
-                )
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "PLATAFORMAS DE EMBARQUE", style = MaterialTheme.typography.labelSmall, color = TextFaint)
-                Spacer(modifier = Modifier.height(8.dp))
-
-                PlatformGrid(
-                    platforms = allPlatforms,
-                    selected = destination,
-                    onSelect = { number -> destination = "Plataforma $number" },
-                )
+            Column(modifier = Modifier.fillMaxWidth().background(Color.White)) {
+                Box(modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp)) {
+                    PrimaryButton(
+                        text = "Ir para o mapa →",
+                        enabled = origin != null && destination != null,
+                        onClick = { destination?.let(onGoToMap) },
+                    )
+                }
+                AppBottomNavBar(selected = AppTab.Buscar, onSelect = onSelectTab)
             }
         }
 
-        Column(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-            Box(modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp)) {
-                PrimaryButton(
-                    text = "Ir para o mapa →",
-                    enabled = origin != null && destination != null,
-                    onClick = { destination?.let(onGoToMap) },
-                )
-            }
-            AppBottomNavBar(selected = AppTab.Buscar, onSelect = onSelectTab)
+        if (showQrScanner) {
+            QrScanOverlay(
+                onScanned = {
+                    origin = QR_ORIGIN_LABEL
+                    showQrScanner = false
+                },
+                onClose = { showQrScanner = false },
+            )
         }
     }
 }

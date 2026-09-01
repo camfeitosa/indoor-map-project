@@ -9,25 +9,17 @@ import androidx.navigation.navArgument
 import com.clickbus.challenge.model.upcomingTrips
 import com.clickbus.challenge.ui.components.AppTab
 import com.clickbus.challenge.ui.screens.AppHomeScreen
-import com.clickbus.challenge.ui.screens.HomeScreen
 import com.clickbus.challenge.ui.screens.MapLocationPickerScreen
 import com.clickbus.challenge.ui.screens.MapRouteScreen
 import com.clickbus.challenge.ui.screens.MyTripsScreen
 import com.clickbus.challenge.ui.screens.SearchDestinationScreen
-import com.clickbus.challenge.ui.screens.TotemHomeScreen
-import com.clickbus.challenge.ui.screens.TotemMapScreen
-import com.clickbus.challenge.ui.screens.TotemServicesScreen
 
 private object Routes {
-    const val HOME = "home"
     const val APP_HOME = "app_home"
-    const val TOTEM_HOME = "totem_home"
     const val SEARCH = "search"
     const val MY_TRIPS = "my_trips"
     const val MAP_PICKER = "map_picker?preselected={preselected}"
     const val MAP_ROUTE = "map_route/{destination}"
-    const val TOTEM_SERVICES = "totem_services"
-    const val TOTEM_MAP = "totem_map"
 
     fun mapPickerRoute(preselectedDestination: String? = null) =
         if (preselectedDestination != null) "map_picker?preselected=$preselectedDestination" else "map_picker"
@@ -37,14 +29,7 @@ private object Routes {
 
 @Composable
 fun ClickBusNavGraph(navController: NavHostController = rememberNavController()) {
-    NavHost(navController = navController, startDestination = Routes.HOME) {
-        composable(Routes.HOME) {
-            HomeScreen(
-                onSelectTotem = { navController.navigate(Routes.TOTEM_HOME) },
-                onSelectApp = { navController.navigate(Routes.APP_HOME) },
-            )
-        }
-
+    NavHost(navController = navController, startDestination = Routes.APP_HOME) {
         composable(Routes.APP_HOME) {
             AppHomeScreen(
                 onFindPlatform = { navController.navigate(Routes.mapPickerRoute()) },
@@ -61,12 +46,6 @@ fun ClickBusNavGraph(navController: NavHostController = rememberNavController())
                     navController.navigate(Routes.mapPickerRoute(myTripPlatform?.let { "Plataforma $it" }))
                 },
                 onSelectTab = { tab -> handleAppTabNavigation(navController, tab) },
-            )
-        }
-
-        composable(Routes.TOTEM_HOME) {
-            TotemHomeScreen(
-                onExplore = { navController.navigate(Routes.TOTEM_SERVICES) },
             )
         }
 
@@ -101,20 +80,6 @@ fun ClickBusNavGraph(navController: NavHostController = rememberNavController())
                 destinationLabel = "Táxi → $destination",
                 onBack = { navController.popBackStack() },
                 onSelectTab = { tab -> handleAppTabNavigation(navController, tab) },
-            )
-        }
-
-        composable(Routes.TOTEM_SERVICES) {
-            TotemServicesScreen(
-                onBack = { navController.popBackStack() },
-                onSelectPlatform = { _, _ -> navController.navigate(Routes.TOTEM_MAP) },
-            )
-        }
-
-        composable(Routes.TOTEM_MAP) {
-            TotemMapScreen(
-                onBack = { navController.popBackStack() },
-                onRouteSentToPhone = { navController.navigate(Routes.APP_HOME) { popUpTo(Routes.HOME) } },
             )
         }
     }
