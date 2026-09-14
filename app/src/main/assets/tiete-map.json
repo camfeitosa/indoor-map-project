@@ -1,0 +1,914 @@
+{
+  "points": [
+    {
+      "id": "TIETE-TER-ENTRADA-001",
+      "label": "Cruzeiro do sul",
+      "floor": "terreo",
+      "type": "entrada",
+      "x": 45.51,
+      "y": 82.41
+    },
+    {
+      "id": "TIETE-TER-ENTRADA-002",
+      "label": "Acesso metro",
+      "floor": "terreo",
+      "type": "entrada",
+      "x": 51.81,
+      "y": 75.81
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-005",
+      "label": "Corredor 9",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 35.06,
+      "y": 50.72
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-007",
+      "label": "Corredor 11",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 35.3,
+      "y": 44.87
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-011",
+      "label": "Corredor 15",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 35.89,
+      "y": 31.13
+    },
+    {
+      "id": "TIETE-TER-SERVICO-001",
+      "label": "bilheteria",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 36.48,
+      "y": 24.9
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-022",
+      "label": "Corredor 27",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 52.02,
+      "y": 32.16
+    },
+    {
+      "id": "TIETE-TER-SERVICO-002",
+      "label": "informação",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 49.95,
+      "y": 31.31
+    },
+    {
+      "id": "TIETE-TER-SERVICO-003",
+      "label": "informação 2",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 55.81,
+      "y": 27.29
+    },
+    {
+      "id": "TIETE-TER-SERVICO-004",
+      "label": "bilheteria 2",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 30.42,
+      "y": 28.02
+    },
+    {
+      "id": "TIETE-TER-SERVICO-005",
+      "label": "bilheteria 3",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 27.59,
+      "y": 22.34
+    },
+    {
+      "id": "TIETE-TER-SERVICO-006",
+      "label": "bilheteria 4",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 33.35,
+      "y": 19.59
+    },
+    {
+      "id": "TIETE-TER-SERVICO-007",
+      "label": "bilheteria 5",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 40.09,
+      "y": 22.52
+    },
+    {
+      "id": "TIETE-TER-SERVICO-008",
+      "label": "bilheria 6",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 41.65,
+      "y": 29.48
+    },
+    {
+      "id": "TIETE-TER-SERVICO-009",
+      "label": "bilheteria 7",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 66.94,
+      "y": 25.27
+    },
+    {
+      "id": "TIETE-TER-SERVICO-010",
+      "label": "bilheria 8",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 70.11,
+      "y": 23.26
+    },
+    {
+      "id": "TIETE-TER-SERVICO-011",
+      "label": "bilheteria 9",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 73.8,
+      "y": 28.9
+    },
+    {
+      "id": "TIETE-TER-SERVICO-012",
+      "label": "bilheteria 10",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 62.84,
+      "y": 29.12
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-023",
+      "label": "Corredor 39",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 69.68,
+      "y": 68.17
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-026",
+      "label": "Corredor 42",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 68.31,
+      "y": 51.09
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-028",
+      "label": "Corredor 44",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 68.03,
+      "y": 44.35
+    },
+    {
+      "id": "TIETE-TER-SERVICO-013",
+      "label": "telefones",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 85.99,
+      "y": 56.4
+    },
+    {
+      "id": "TIETE-TER-SERVICO-014",
+      "label": "telefones 2",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 17.43,
+      "y": 58.64
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-031",
+      "label": "Corredor 49",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 24.7,
+      "y": 51.11
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-033",
+      "label": "Corredor 51",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 29.83,
+      "y": 50.91
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-034",
+      "label": "Corredor 52",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 39.39,
+      "y": 50.82
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-036",
+      "label": "Corredor 54",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 63.72,
+      "y": 50.36
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-037",
+      "label": "Corredor 55",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 71.73,
+      "y": 50.91
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-038",
+      "label": "Corredor 56",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 74.75,
+      "y": 68.08
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-039",
+      "label": "Corredor 57",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 80.32,
+      "y": 66.03
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-040",
+      "label": "Corredor 58",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 84.52,
+      "y": 60.98
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-042",
+      "label": "Corredor 60",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 45.64,
+      "y": 74.44
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-043",
+      "label": "Corredor 61",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 17.58,
+      "y": 51.42
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-044",
+      "label": "Corredor 62",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 51.89,
+      "y": 45.07
+    },
+    {
+      "id": "TIETE-TER-SERVICO-015",
+      "label": "sanitários",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 43.51,
+      "y": 47.25
+    },
+    {
+      "id": "TIETE-TER-SERVICO-016",
+      "label": "sanitários 2",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 59.91,
+      "y": 47.25
+    },
+    {
+      "id": "TIETE-TER-SERVICO-017",
+      "label": "taxi",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 47.9,
+      "y": 24.36
+    },
+    {
+      "id": "TIETE-TER-SERVICO-018",
+      "label": "banho",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 49.76,
+      "y": 23.99
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-045",
+      "label": "Corredor 67",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 41.08,
+      "y": 69.13
+    },
+    {
+      "id": "TIETE-TER-SERVICO-019",
+      "label": "alimentacao 2",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 20.11,
+      "y": 65.98
+    },
+    {
+      "id": "TIETE-TER-SERVICO-020",
+      "label": "lojas",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 21.68,
+      "y": 72.58
+    },
+    {
+      "id": "TIETE-TER-SERVICO-021",
+      "label": "lojas 2",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 34.42,
+      "y": 69.13
+    },
+    {
+      "id": "TIETE-TER-SERVICO-022",
+      "label": "lojas 3",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 59.44,
+      "y": 68.51
+    },
+    {
+      "id": "TIETE-TER-SERVICO-023",
+      "label": "farmácia",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 66.33,
+      "y": 68.28
+    },
+    {
+      "id": "TIETE-TER-SERVICO-024",
+      "label": "lojas 4",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 30.42,
+      "y": 47.25
+    },
+    {
+      "id": "TIETE-TER-SERVICO-025",
+      "label": "alimentacao 3",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 21.05,
+      "y": 49.81
+    },
+    {
+      "id": "TIETE-TER-SERVICO-026",
+      "label": "alimentacao 4",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 81.4,
+      "y": 49.08
+    },
+    {
+      "id": "TIETE-TER-SERVICO-027",
+      "label": "lojas 4",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 74.76,
+      "y": 48.89
+    },
+    {
+      "id": "TIETE-TER-SERVICO-028",
+      "label": "alimentacao 5",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 57.47,
+      "y": 51.27
+    },
+    {
+      "id": "TIETE-TER-SERVICO-029",
+      "label": "lojas 5",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 47.97,
+      "y": 51.03
+    },
+    {
+      "id": "TIETE-TER-SERVICO-030",
+      "label": "telefone 3",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 44.48,
+      "y": 22.89
+    },
+    {
+      "id": "TIETE-TER-SERVICO-031",
+      "label": "praça de alimentação",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 53.27,
+      "y": 16.11
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-047",
+      "label": "Corredor 82",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 51.87,
+      "y": 68.65
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-048",
+      "label": "Corredor 83",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 62.87,
+      "y": 68.57
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-049",
+      "label": "Corredor 84",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 78.37,
+      "y": 50.54
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-050",
+      "label": "Corredor 85",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 79.64,
+      "y": 55.85
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-052",
+      "label": "Corredor 87",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 39.99,
+      "y": 27.47
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-053",
+      "label": "Corredor 88",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 44.48,
+      "y": 27.47
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-054",
+      "label": "Corredor 89",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 51.81,
+      "y": 27.65
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-055",
+      "label": "Corredor 90",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 62.76,
+      "y": 26.75
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-057",
+      "label": "Corredor 92",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 67.31,
+      "y": 29.85
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-051",
+      "label": "Corredor 77",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 60.32,
+      "y": 50.31
+    },
+    {
+      "id": "TIETE-TER-SERVICO-032",
+      "label": "alimentacoa 7",
+      "floor": "terreo",
+      "type": "servico",
+      "x": 44.91,
+      "y": 68.24
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-059",
+      "label": "Corredor 74",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 73.84,
+      "y": 23.34
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-060",
+      "label": "Corredor 73",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 51.87,
+      "y": 51.62
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-041",
+      "label": "Corredor 71",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 51.61,
+      "y": 19.93
+    },
+    {
+      "id": "TIETE-TER-ENTRADA-003",
+      "label": "estacionamento",
+      "floor": "terreo",
+      "type": "entrada",
+      "x": 26,
+      "y": 74.32
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-035",
+      "label": "Corredor 70",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 23.08,
+      "y": 69.44
+    },
+    {
+      "id": "TIETE-TER-CORREDOR-046",
+      "label": "Corredor 71",
+      "floor": "terreo",
+      "type": "corredor",
+      "x": 26.14,
+      "y": 69.19
+    }
+  ],
+  "connections": [
+    {
+      "from": "TIETE-TER-CORREDOR-005",
+      "to": "TIETE-TER-CORREDOR-007"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-011",
+      "to": "TIETE-TER-SERVICO-001"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-001",
+      "to": "TIETE-TER-CORREDOR-052"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-052",
+      "to": "TIETE-TER-SERVICO-008"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-008",
+      "to": "TIETE-TER-CORREDOR-053"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-053",
+      "to": "TIETE-TER-CORREDOR-054"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-054",
+      "to": "TIETE-TER-SERVICO-003"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-003",
+      "to": "TIETE-TER-CORREDOR-055"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-055",
+      "to": "TIETE-TER-CORREDOR-057"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-057",
+      "to": "TIETE-TER-SERVICO-009"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-028",
+      "to": "TIETE-TER-CORREDOR-026"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-023",
+      "to": "TIETE-TER-CORREDOR-038"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-038",
+      "to": "TIETE-TER-CORREDOR-039"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-039",
+      "to": "TIETE-TER-CORREDOR-040"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-040",
+      "to": "TIETE-TER-SERVICO-013"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-054",
+      "to": "TIETE-TER-CORREDOR-022"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-025",
+      "to": "TIETE-TER-CORREDOR-043"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-025",
+      "to": "TIETE-TER-CORREDOR-031"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-031",
+      "to": "TIETE-TER-CORREDOR-033"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-033",
+      "to": "TIETE-TER-SERVICO-024"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-033",
+      "to": "TIETE-TER-CORREDOR-005"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-005",
+      "to": "TIETE-TER-CORREDOR-034"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-033",
+      "to": "TIETE-TER-CORREDOR-007"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-034",
+      "to": "TIETE-TER-SERVICO-015"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-015",
+      "to": "TIETE-TER-SERVICO-029"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-029",
+      "to": "TIETE-TER-CORREDOR-044"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-028",
+      "to": "TIETE-TER-SERVICO-016"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-016",
+      "to": "TIETE-TER-CORREDOR-036"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-028",
+      "to": "TIETE-TER-CORREDOR-051"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-051",
+      "to": "TIETE-TER-CORREDOR-036"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-036",
+      "to": "TIETE-TER-CORREDOR-026"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-016",
+      "to": "TIETE-TER-CORREDOR-051"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-026",
+      "to": "TIETE-TER-CORREDOR-037"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-037",
+      "to": "TIETE-TER-SERVICO-027"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-027",
+      "to": "TIETE-TER-CORREDOR-049"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-049",
+      "to": "TIETE-TER-SERVICO-026"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-049",
+      "to": "TIETE-TER-CORREDOR-050"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-050",
+      "to": "TIETE-TER-SERVICO-013"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-047",
+      "to": "TIETE-TER-SERVICO-022"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-022",
+      "to": "TIETE-TER-CORREDOR-048"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-048",
+      "to": "TIETE-TER-SERVICO-023"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-023",
+      "to": "TIETE-TER-CORREDOR-023"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-042",
+      "to": "TIETE-TER-ENTRADA-001"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-045",
+      "to": "TIETE-TER-SERVICO-032"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-032",
+      "to": "TIETE-TER-CORREDOR-042"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-019",
+      "to": "TIETE-TER-SERVICO-020"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-007",
+      "to": "TIETE-TER-CORREDOR-011"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-044",
+      "to": "TIETE-TER-CORREDOR-022"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-028",
+      "to": "TIETE-TER-CORREDOR-057"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-019",
+      "to": "TIETE-TER-SERVICO-014"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-014",
+      "to": "TIETE-TER-CORREDOR-043"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-032",
+      "to": "TIETE-TER-CORREDOR-047"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-034",
+      "to": "TIETE-TER-CORREDOR-007"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-001",
+      "to": "TIETE-TER-SERVICO-004"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-004",
+      "to": "TIETE-TER-SERVICO-005"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-005",
+      "to": "TIETE-TER-SERVICO-006"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-006",
+      "to": "TIETE-TER-SERVICO-007"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-052",
+      "to": "TIETE-TER-SERVICO-007"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-010",
+      "to": "TIETE-TER-SERVICO-009"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-057",
+      "to": "TIETE-TER-SERVICO-011"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-011",
+      "to": "TIETE-TER-SERVICO-010"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-010",
+      "to": "TIETE-TER-CORREDOR-059"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-059",
+      "to": "TIETE-TER-SERVICO-011"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-034",
+      "to": "TIETE-TER-SERVICO-029"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-044",
+      "to": "TIETE-TER-CORREDOR-060"
+    },
+    {
+      "from": "TIETE-TER-ENTRADA-002",
+      "to": "TIETE-TER-CORREDOR-047"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-047",
+      "to": "TIETE-TER-CORREDOR-060"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-029",
+      "to": "TIETE-TER-CORREDOR-060"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-060",
+      "to": "TIETE-TER-SERVICO-028"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-030",
+      "to": "TIETE-TER-SERVICO-017"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-017",
+      "to": "TIETE-TER-CORREDOR-053"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-017",
+      "to": "TIETE-TER-CORREDOR-054"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-055",
+      "to": "TIETE-TER-SERVICO-012"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-012",
+      "to": "TIETE-TER-CORREDOR-057"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-012",
+      "to": "TIETE-TER-SERVICO-003"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-021",
+      "to": "TIETE-TER-CORREDOR-045"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-002",
+      "to": "TIETE-TER-CORREDOR-054"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-002",
+      "to": "TIETE-TER-CORREDOR-022"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-039",
+      "to": "TIETE-TER-CORREDOR-050"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-054",
+      "to": "TIETE-TER-CORREDOR-041"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-031",
+      "to": "TIETE-TER-CORREDOR-041"
+    },
+    {
+      "from": "TIETE-TER-ENTRADA-003",
+      "to": "TIETE-TER-CORREDOR-046"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-046",
+      "to": "TIETE-TER-CORREDOR-035"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-035",
+      "to": "TIETE-TER-CORREDOR-031"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-035",
+      "to": "TIETE-TER-SERVICO-019"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-046",
+      "to": "TIETE-TER-SERVICO-021"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-035",
+      "to": "TIETE-TER-SERVICO-020"
+    },
+    {
+      "from": "TIETE-TER-SERVICO-021",
+      "to": "TIETE-TER-CORREDOR-005"
+    },
+    {
+      "from": "TIETE-TER-CORREDOR-023",
+      "to": "TIETE-TER-CORREDOR-026"
+    }
+  ]
+}

@@ -84,7 +84,7 @@ private val allPlatforms = (1..12).map { it.toString() }
 @Composable
 fun MapLocationPickerScreen(
     onBack: () -> Unit,
-    onGoToMap: (destination: String) -> Unit,
+    onGoToMap: (origin: String, destination: String) -> Unit,
     preselectedDestination: String? = null,
     onSelectTab: (AppTab) -> Unit = {},
 ) {
@@ -161,7 +161,13 @@ fun MapLocationPickerScreen(
                     PrimaryButton(
                         text = "Ir para o mapa →",
                         enabled = origin != null && destination != null,
-                        onClick = { destination?.let(onGoToMap) },
+                        onClick = {
+                            val selectedOrigin = origin
+                            val selectedDestination = destination
+                            if (selectedOrigin != null && selectedDestination != null) {
+                                onGoToMap(selectedOrigin, selectedDestination)
+                            }
+                        },
                     )
                 }
                 AppBottomNavBar(selected = AppTab.Buscar, onSelect = onSelectTab)

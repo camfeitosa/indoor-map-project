@@ -1,5 +1,6 @@
 package com.clickbus.challenge.navigation
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -19,12 +20,16 @@ private object Routes {
     const val SEARCH = "search"
     const val MY_TRIPS = "my_trips"
     const val MAP_PICKER = "map_picker?preselected={preselected}"
-    const val MAP_ROUTE = "map_route/{destination}"
+    const val MAP_ROUTE = "map_route/{destination}?origin={origin}"
 
     fun mapPickerRoute(preselectedDestination: String? = null) =
         if (preselectedDestination != null) "map_picker?preselected=$preselectedDestination" else "map_picker"
 
-    fun mapRoute(destination: String) = "map_route/$destination"
+    fun mapRoute(destination: String, origin: String? = null): String {
+        val encodedDestination = Uri.encode(destination)
+        val encodedOrigin = Uri.encode(origin.orEmpty())
+        return "map_route/$encodedDestination?origin=$encodedOrigin"
+    }
 }
 
 @Composable
@@ -66,18 +71,23 @@ fun ClickBusNavGraph(navController: NavHostController = rememberNavController())
             MapLocationPickerScreen(
                 preselectedDestination = preselected,
                 onBack = { navController.popBackStack() },
-                onGoToMap = { destination -> navController.navigate(Routes.mapRoute(destination)) },
+                onGoToMap = { origin, destination -> navController.navigate(Routes.mapRoute(destination, origin)) },
                 onSelectTab = { tab -> handleAppTabNavigation(navController, tab) },
             )
         }
 
         composable(
             route = Routes.MAP_ROUTE,
-            arguments = listOf(navArgument("destination") { defaultValue = "Plataforma 12" }),
+            arguments = listOf(
+                navArgument("destination") { defaultValue = "Plataforma 12" },
+                navArgument("origin") { nullable = true; defaultValue = null },
+            ),
         ) { backStackEntry ->
             val destination = backStackEntry.arguments?.getString("destination") ?: "Plataforma 12"
+            val origin = backStackEntry.arguments?.getString("origin")
             MapRouteScreen(
-                destinationLabel = "Táxi → $destination",
+                originLabel = origin,
+                destinationLabel = destination,
                 onBack = { navController.popBackStack() },
                 onSelectTab = { tab -> handleAppTabNavigation(navController, tab) },
             )
