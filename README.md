@@ -59,13 +59,13 @@ O Terminal Rodoviário do Tietê é utilizado como cenário da demonstração.
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/camfeitosa/challenge-clickbus.git
+   git clone https://github.com/camfeitosa/indoor-map-project.git
    ```
 
 2. Entre na pasta do projeto:
 
    ```bash
-   cd challenge-clickbus
+   cd indoor-map-project
    ```
 
 3. Abra a pasta do projeto no Android Studio.
