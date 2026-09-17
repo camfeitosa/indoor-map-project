@@ -1,4 +1,4 @@
-# ClickBus Indoor Map
+# Indoor Map
 
 Protótipo de navegação interna para terminais rodoviários. A solução utiliza a planta do terminal como um grafo, calcula a melhor rota com o algoritmo de Dijkstra e simula a atualização da posição do passageiro por beacons Bluetooth.
 
