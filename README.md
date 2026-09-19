@@ -18,6 +18,7 @@ O Terminal Rodoviário do Tietê é utilizado como cenário da demonstração.
 
 ## Demonstração
 
+<details>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/808fcce5-657e-4e1c-a2e6-293d7d597db1" alt="Tela inicial" width="45%">
   <img src="https://github.com/user-attachments/assets/25647760-bd93-4a0f-9d9e-8407fa57f168" alt="Conteúdo da tela inicial" width="45%">
@@ -42,6 +43,7 @@ O Terminal Rodoviário do Tietê é utilizado como cenário da demonstração.
   <img src="https://github.com/user-attachments/assets/96385d63-ba0c-4a67-b0b6-42c96158d850" alt="Destino alcançado" width="45%">
   <img src="https://github.com/user-attachments/assets/399c941e-4b09-4eeb-bd8c-112ed35a13d8" alt="Busca de destinos" width="45%">
 </p>
+</details>
 
 ## Como testar o protótipo
 
