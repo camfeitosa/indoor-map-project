@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">ClickBus Indoor Map</string>
+
+    <!-- Tela do mapa / rota -->
+    <string name="map_route_title">Rodoviária Tietê</string>
+    <string name="map_route_subtitle">%1$s → %2$s</string>
+    <string name="map_route_origin_fallback">Origem</string>
+    <string name="map_route_map_description">Planta do Terminal Rodoviário Tietê</string>
+    <string name="map_route_gesture_hint">Use dois dedos para ampliar e arraste para explorar</string>
+    <string name="map_route_loading">Calculando a melhor rota…</string>
+    <string name="map_route_retry">Tentar novamente</string>
+    <string name="map_route_summary">%1$d m · cerca de %2$d min a pé</string>
+    <string name="map_route_beacon_detected">Beacon detectado</string>
+    <string name="map_route_destination_reached">Destino alcançado</string>
+    <string name="map_route_step_by_step">Passo a passo</string>
+    <string name="map_route_action_start">Iniciar percurso</string>
+    <string name="map_route_action_pause">Pausar</string>
+    <string name="map_route_action_restart">Reiniciar</string>
+    <string name="map_route_recalculation_failed">Não foi possível recalcular a rota. O percurso foi pausado.</string>
+
+    <!-- Erros ao calcular rota -->
+    <string name="route_error_no_connection">Não foi possível conectar ao serviço de rotas. Verifique sua conexão e tente novamente.</string>
+    <string name="route_error_timeout">O serviço de rotas demorou demais para responder.</string>
+    <string name="route_error_destination_not_found">Não encontramos esse destino no mapa.</string>
+    <string name="route_error_unreachable">Não há caminho disponível entre sua posição e o destino.</string>
+    <string name="route_error_invalid_request">O pedido de rota é inválido.</string>
+    <string name="route_error_server">O serviço de rotas está com problemas. Tente novamente em instantes.</string>
+    <string name="route_error_invalid_response">Recebemos uma resposta inesperada do serviço de rotas.</string>
+    <string name="route_error_unknown">Ocorreu um erro inesperado ao calcular a rota.</string>
 </resources>
