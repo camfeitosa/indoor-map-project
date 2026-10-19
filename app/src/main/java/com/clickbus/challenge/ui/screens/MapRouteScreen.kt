@@ -1,4 +1,4 @@
-package com.clickbus.challenge.ui.screens
+﻿package com.clickbus.challenge.ui.screens
 
 import android.Manifest
 import android.content.Context
@@ -57,12 +57,8 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.clickbus.challenge.R
-import com.clickbus.challenge.indoor.BeaconSimulator
-import com.clickbus.challenge.indoor.DemoMapLocations
-import com.clickbus.challenge.indoor.IndoorDirectionEngine
-import com.clickbus.challenge.indoor.IndoorMapAssetLoader
-import com.clickbus.challenge.indoor.IndoorRoute
-import com.clickbus.challenge.indoor.IndoorRouteEngine
+import com.clickbus.challenge.data.route.RouteModule
+import com.clickbus.challenge.domain.route.MapPosition
 import com.clickbus.challenge.ui.components.AppBottomNavBar
 import com.clickbus.challenge.ui.components.AppTab
 import com.clickbus.challenge.ui.components.StationTopBar
@@ -71,6 +67,17 @@ import com.clickbus.challenge.ui.theme.BorderLight
 import com.clickbus.challenge.ui.theme.InkDark
 import com.clickbus.challenge.ui.theme.PurpleBrand
 import com.clickbus.challenge.ui.theme.SurfaceBgAlt
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.clickbus.challenge.ui.screens.maproute.MapRouteUiState
+import com.clickbus.challenge.ui.screens.maproute.MapRouteViewModel
+import com.clickbus.challenge.ui.screens.maproute.messageRes
+import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
 
@@ -83,72 +90,56 @@ fun MapRouteScreen(
 ) {
     StatusBarIcons(darkIcons = true)
     val context = LocalContext.current
-    val mapData = remember { IndoorMapAssetLoader.loadTieteMap(context) }
-    val originId = remember(originLabel) { DemoMapLocations.originId(originLabel) }
-    val destinationId = remember(destinationLabel) { DemoMapLocations.destinationId(destinationLabel) }
-    val initialRoute = remember(mapData, originId, destinationId) {
-        IndoorRouteEngine.shortestPath(mapData, originId, destinationId)
-    }
-    val beaconSimulator = remember(initialRoute.points) { BeaconSimulator(initialRoute.points) }
-    var currentPointId by remember(initialRoute.points) { mutableStateOf(originId) }
-    var isSimulating by remember(initialRoute.points) { mutableStateOf(false) }
-    val route = remember(mapData, currentPointId, destinationId) {
-        IndoorRouteEngine.shortestPath(mapData, currentPointId, destinationId)
-    }
-    val directions = remember(route, destinationLabel) {
-        IndoorDirectionEngine.directions(route, destinationLabel)
-    }
-    val currentPointName = mapData.pointsById[currentPointId]?.label ?: "Origem"
-    val hasArrived = currentPointId == destinationId && route.isAvailable
-    val startSimulation = {
-        if (hasArrived) {
-            beaconSimulator.reset()
-            currentPointId = originId
-        }
-        isSimulating = true
-    }
+    val viewModel: MapRouteViewModel = viewModel(
+        key = "map-route:$originLabel->$destinationLabel",
+        factory = viewModelFactory {
+            initializer { MapRouteViewModel(RouteModule.repository, originLabel, destinationLabel) }
+        },
+    )
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     val bluetoothPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions(),
     ) { result ->
-        if (result.values.all { it }) startSimulation()
+        if (result.values.all { it }) viewModel.startSimulation()
     }
-
-    LaunchedEffect(isSimulating, beaconSimulator) {
-        if (!isSimulating) return@LaunchedEffect
-        beaconSimulator.detections().collect { detection ->
-            currentPointId = detection.pointId
-            if (detection.pointId == destinationId) isSimulating = false
+    val onSimulationAction = {
+        val content = uiState as? MapRouteUiState.Content
+        when {
+            content == null -> Unit
+            content.isSimulating -> viewModel.pauseSimulation()
+            hasBluetoothPermission(context) -> viewModel.startSimulation()
+            else -> bluetoothPermissionLauncher.launch(requiredBluetoothPermissions())
         }
     }
 
+    // A tela de busca pode mandar a origem como texto vazio, não só null.
+    val currentLabel = (uiState as? MapRouteUiState.Content)?.currentPlaceLabel
+        ?: originLabel?.takeIf { it.isNotBlank() }
+        ?: stringResource(R.string.map_route_origin_fallback)
+
     Column(modifier = Modifier.fillMaxSize()) {
         StationTopBar(
-            title = "Rodoviária Tietê",
-            subtitle = "$currentPointName → $destinationLabel",
+            title = stringResource(R.string.map_route_title),
+            subtitle = stringResource(R.string.map_route_subtitle, currentLabel, destinationLabel),
             onBack = onBack,
         )
         Column(modifier = Modifier.weight(1f).background(SurfaceBgAlt)) {
-            IndoorRouteMap(
-                route = route,
-                modifier = Modifier.fillMaxWidth().weight(1f),
-            )
-            RouteSummary(
-                route = route,
-                destinationLabel = destinationLabel,
-                directions = directions.map { it.instruction },
-                currentPointName = currentPointName,
-                isSimulating = isSimulating,
-                hasArrived = hasArrived,
-                onSimulationAction = {
-                    if (isSimulating) {
-                        isSimulating = false
-                    } else if (hasBluetoothPermission(context)) {
-                        startSimulation()
-                    } else {
-                        bluetoothPermissionLauncher.launch(requiredBluetoothPermissions())
-                    }
-                },
-            )
+            when (val state = uiState) {
+                MapRouteUiState.Loading -> RouteLoading(modifier = Modifier.fillMaxWidth().weight(1f))
+                is MapRouteUiState.Error -> RouteError(
+                    messageRes = state.error.messageRes(),
+                    onRetry = viewModel::load,
+                    modifier = Modifier.fillMaxWidth().weight(1f),
+                )
+                is MapRouteUiState.Content -> {
+                    IndoorRouteMap(
+                        path = state.route.path,
+                        modifier = Modifier.fillMaxWidth().weight(1f),
+                    )
+                    RouteSummary(state = state, onSimulationAction = onSimulationAction)
+                }
+            }
             androidx.compose.foundation.layout.Spacer(modifier = Modifier.height(14.dp))
         }
         AppBottomNavBar(selected = AppTab.Buscar, onSelect = onSelectTab)
@@ -156,22 +147,64 @@ fun MapRouteScreen(
 }
 
 @Composable
-private fun IndoorRouteMap(
-    route: IndoorRoute,
+private fun RouteLoading(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        CircularProgressIndicator(color = PurpleBrand)
+        Text(
+            text = stringResource(R.string.map_route_loading),
+            style = MaterialTheme.typography.bodyMedium,
+            color = InkDark,
+            modifier = Modifier.padding(top = 12.dp),
+        )
+    }
+}
+
+@Composable
+private fun RouteError(
+    @androidx.annotation.StringRes messageRes: Int,
+    onRetry: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    Column(
+        modifier = modifier.padding(24.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = stringResource(messageRes),
+            style = MaterialTheme.typography.bodyMedium,
+            color = InkDark,
+            textAlign = TextAlign.Center,
+        )
+        Button(onClick = onRetry, modifier = Modifier.padding(top = 16.dp)) {
+            Text(text = stringResource(R.string.map_route_retry))
+        }
+    }
+}
+
+@Composable
+private fun IndoorRouteMap(
+    path: List<MapPosition>,
+    modifier: Modifier = Modifier,
+) {
+    // Pontos da polyline da API, em percentual da planta (0..100), como o desenho já esperava.
+    val points = remember(path) { path.map { Offset(it.x.toFloat(), it.y.toFloat()) } }
     var viewportSize by remember { mutableStateOf(IntSize.Zero) }
     var mapSize by remember { mutableStateOf(IntSize.Zero) }
     var targetScale by remember { mutableFloatStateOf(1f) }
     var targetOffsetX by remember { mutableFloatStateOf(0f) }
     var targetOffsetY by remember { mutableFloatStateOf(0f) }
 
-    LaunchedEffect(route.points, viewportSize, mapSize) {
-        if (!route.isAvailable || viewportSize == IntSize.Zero || mapSize == IntSize.Zero) return@LaunchedEffect
-        val minX = route.points.minOf { it.xPercent } / 100f
-        val maxX = route.points.maxOf { it.xPercent } / 100f
-        val minY = route.points.minOf { it.yPercent } / 100f
-        val maxY = route.points.maxOf { it.yPercent } / 100f
+    LaunchedEffect(points, viewportSize, mapSize) {
+        if (points.isEmpty() || viewportSize == IntSize.Zero || mapSize == IntSize.Zero) return@LaunchedEffect
+        val minX = points.minOf { it.x } / 100f
+        val maxX = points.maxOf { it.x } / 100f
+        val minY = points.minOf { it.y } / 100f
+        val maxY = points.maxOf { it.y } / 100f
         val routeWidth = max(0.12f, maxX - minX)
         val routeHeight = max(0.12f, maxY - minY)
         val viewportToMapHeight = viewportSize.height.toFloat() / mapSize.height
@@ -195,7 +228,7 @@ private fun IndoorRouteMap(
             .clipToBounds()
             .background(Color(0xFFE5E7EB))
             .onSizeChanged { viewportSize = it }
-            .pointerInput(route.points) {
+            .pointerInput(points) {
                 detectTransformGestures { _, pan, zoom, _ ->
                     val minimumScale = minimumCoverScale(viewportSize, mapSize)
                     val newScale = (targetScale * zoom).coerceIn(minimumScale, 4f)
@@ -227,24 +260,24 @@ private fun IndoorRouteMap(
         ) {
             Image(
                 painter = painterResource(R.drawable.tiete_terminal_map),
-                contentDescription = "Planta do Terminal Rodoviário Tietê",
+                contentDescription = stringResource(R.string.map_route_map_description),
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxSize(),
             )
             Canvas(modifier = Modifier.fillMaxSize()) {
-                route.points.zipWithNext().forEach { (from, to) ->
-                    val start = Offset(size.width * from.xPercent / 100f, size.height * from.yPercent / 100f)
-                    val end = Offset(size.width * to.xPercent / 100f, size.height * to.yPercent / 100f)
+                points.zipWithNext().forEach { (from, to) ->
+                    val start = Offset(size.width * from.x / 100f, size.height * from.y / 100f)
+                    val end = Offset(size.width * to.x / 100f, size.height * to.y / 100f)
                     drawLine(Color.White.copy(alpha = 0.95f), start, end, 4.dp.toPx(), StrokeCap.Round)
                     drawLine(PurpleBrand, start, end, 2.dp.toPx(), StrokeCap.Round)
                 }
-                route.points.firstOrNull()?.let { point ->
-                    val center = Offset(size.width * point.xPercent / 100f, size.height * point.yPercent / 100f)
+                points.firstOrNull()?.let { point ->
+                    val center = Offset(size.width * point.x / 100f, size.height * point.y / 100f)
                     drawCircle(Color.White, 5.dp.toPx(), center)
                     drawCircle(PurpleBrand, 3.dp.toPx(), center)
                 }
-                route.points.lastOrNull()?.let { point ->
-                    val center = Offset(size.width * point.xPercent / 100f, size.height * point.yPercent / 100f)
+                points.lastOrNull()?.let { point ->
+                    val center = Offset(size.width * point.x / 100f, size.height * point.y / 100f)
                     drawCircle(Color.White, 5.dp.toPx(), center)
                     drawCircle(Color(0xFF16A34A), 3.dp.toPx(), center)
                 }
@@ -252,7 +285,7 @@ private fun IndoorRouteMap(
         }
 
         Text(
-            text = "Use dois dedos para ampliar e arraste para explorar",
+            text = stringResource(R.string.map_route_gesture_hint),
             style = MaterialTheme.typography.labelSmall,
             color = Color.White,
             modifier = Modifier
@@ -266,86 +299,89 @@ private fun IndoorRouteMap(
 
 @Composable
 private fun RouteSummary(
-    route: IndoorRoute,
-    destinationLabel: String,
-    directions: List<String>,
-    currentPointName: String,
-    isSimulating: Boolean,
-    hasArrived: Boolean,
+    state: MapRouteUiState.Content,
     onSimulationAction: () -> Unit,
 ) {
+    val route = state.route
+    val minutes = max(1, ceil(route.estimatedSeconds / 60.0).toInt())
     Column(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        if (route.isAvailable) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = if (hasArrived) "Destino alcançado" else "Beacon detectado",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = PurpleBrand,
-                    )
-                    Text(text = currentPointName, style = MaterialTheme.typography.bodySmall, color = InkDark)
-                }
-                Button(onClick = onSimulationAction) {
-                    Text(
-                        text = when {
-                            hasArrived -> "Reiniciar"
-                            isSimulating -> "Pausar"
-                            else -> "Iniciar percurso"
-                        },
-                    )
-                }
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                Icon(Icons.Filled.Navigation, contentDescription = null, tint = PurpleBrand, modifier = Modifier.size(18.dp))
-                Text(text = "Passo a passo", style = MaterialTheme.typography.titleSmall, color = InkDark)
-            }
-
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth().heightIn(max = 190.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                itemsIndexed(directions) { index, instruction ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.White, RoundedCornerShape(12.dp))
-                            .border(1.dp, BorderLight, RoundedCornerShape(12.dp))
-                            .padding(11.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(9.dp),
-                    ) {
-                        Box(
-                            modifier = Modifier.size(24.dp).background(PurpleBrand, CircleShape),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            Text(text = (index + 1).toString(), color = Color.White, style = MaterialTheme.typography.labelSmall)
-                        }
-                        Text(text = instruction, style = MaterialTheme.typography.bodySmall, color = InkDark)
-                    }
-                }
-            }
-        } else {
-            Row(
-                modifier = Modifier.fillMaxWidth().background(PurpleBrand, RoundedCornerShape(12.dp)).padding(14.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-                Icon(Icons.Filled.Navigation, contentDescription = null, tint = Color.White, modifier = Modifier.size(17.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Não encontramos uma rota conectada até $destinationLabel",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White,
+                    text = stringResource(
+                        if (state.hasArrived) R.string.map_route_destination_reached else R.string.map_route_beacon_detected,
+                    ),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = PurpleBrand,
                 )
+                Text(text = state.currentPlaceLabel, style = MaterialTheme.typography.bodySmall, color = InkDark)
+                Text(
+                    text = stringResource(R.string.map_route_summary, route.distanceMeters.toInt(), minutes),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = InkDark,
+                )
+            }
+            Button(onClick = onSimulationAction) {
+                Text(
+                    text = stringResource(
+                        when {
+                            state.hasArrived -> R.string.map_route_action_restart
+                            state.isSimulating -> R.string.map_route_action_pause
+                            else -> R.string.map_route_action_start
+                        },
+                    ),
+                )
+            }
+        }
+        state.recalculationError?.let {
+            Text(
+                text = stringResource(R.string.map_route_recalculation_failed),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.error,
+            )
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Icon(Icons.Filled.Navigation, contentDescription = null, tint = PurpleBrand, modifier = Modifier.size(18.dp))
+            Text(
+                text = stringResource(R.string.map_route_step_by_step),
+                style = MaterialTheme.typography.titleSmall,
+                color = InkDark,
+            )
+        }
+
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth().heightIn(max = 190.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            itemsIndexed(route.steps) { index, step ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.White, RoundedCornerShape(12.dp))
+                        .border(1.dp, BorderLight, RoundedCornerShape(12.dp))
+                        .padding(11.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(9.dp),
+                ) {
+                    Box(
+                        modifier = Modifier.size(24.dp).background(PurpleBrand, CircleShape),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(text = (index + 1).toString(), color = Color.White, style = MaterialTheme.typography.labelSmall)
+                    }
+                    // A instrução já vem pronta da API, em português.
+                    Text(text = step.instruction, style = MaterialTheme.typography.bodySmall, color = InkDark)
+                }
             }
         }
     }
